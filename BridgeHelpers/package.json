@@ -1,0 +1,22 @@
+{
+  "name": "BridgeHelpers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/Guid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "hex-to-uuid": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.17",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1"
+  }
+}
