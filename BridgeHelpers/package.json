@@ -5,7 +5,8 @@
   "main": "./lib/Guid.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "test:guid": "mocha -r ts-node/register src/test/**.test.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "hex-to-uuid": "^1.1.1"
   },
   "devDependencies": {
+    "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.17",
     "chai": "^4.2.0",
     "mocha": "^8.2.1"

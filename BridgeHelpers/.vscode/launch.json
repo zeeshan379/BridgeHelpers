@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Run Guid Tests",
+            "name": "Guid Tests",
             "program": "${workspaceFolder}\\lib\\Guid.js",
             "args": [
                 "--testDir=${workspaceFolder}/lib/test/",
