@@ -8,10 +8,18 @@
             "type": "node",
             "request": "launch",
             "name": "Guid Tests",
-            "program": "${workspaceFolder}\\lib\\Guid.js",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "--testDir=${workspaceFolder}/lib/test/",
-              ]
+                "-r",
+                "ts-node/register",
+                "--timeout",
+                "999999999",
+                "--colors",
+                "${workspaceFolder}/lib/test/",
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector"
         }
     ]
 }
