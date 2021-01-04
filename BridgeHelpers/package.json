@@ -5,7 +5,7 @@
   "main": "./lib/Guid.js",
   "scripts": {
     "build": "tsc",
-    "test:guid": "mocha -r ts-node/register src/test/**.test.ts"
+    "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts"
   },
   "keywords": [],
   "author": "",

@@ -4,6 +4,7 @@
       "module": "commonjs",
       "baseUrl": "./node_modules",
       "outDir": "./lib",
+      "sourceMap": true,
       "noUnusedParameters": false
   },
   "include": [
