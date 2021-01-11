@@ -16,7 +16,6 @@ describe("Bridge Helpers: Provision Tests", () => {
     let emptyImodel: IModelDb;
 
     before(async () => {
-
         try{
             await IModelHost.startup();
         }

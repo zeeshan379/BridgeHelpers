@@ -13,16 +13,15 @@ export class ProvisionHelper{
         return funcSchema && phySchema;
     }
 
-    public static schemaClassExists(imodel:IModelDb, className:string) : boolean {
+    public static schemaClassExists(imodel:IModelDb, classFullName:string) : boolean {
         if(imodel===null || imodel===undefined){
             throw new Error("Invalid iModel");
         }
 
-        if(className===null || className===undefined || className.length===0){
+        if(classFullName===null || classFullName===undefined || classFullName.length===0){
             throw new Error("Invalid class name");
         }
 
-        const result = imodel.containsClass(className);
-        return imodel.containsClass(className);
+        return imodel.containsClass(classFullName);
     }
 }

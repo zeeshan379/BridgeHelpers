@@ -5,8 +5,8 @@
   "main": "./lib/Guid.js",
   "scripts": {
     "build": "tsc",
-    "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts",
-    "test:provision": "mocha -r ts-node/register src/test/Provision.test.ts"
+    "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts --timeout 10000",
+    "test:provision": "mocha -r ts-node/register src/test/Provision.test.ts --timeout 60000"
   },
   "keywords": [],
   "author": "",
