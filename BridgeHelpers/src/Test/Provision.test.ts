@@ -4,11 +4,14 @@ import { AuthorizedClientRequestContext } from "@bentley/itwin-client";
 import { TestUsers, TestUtility } from "@bentley/oidc-signin-tool";
 import { IModelDb, IModelHost, BriefcaseDb, BriefcaseManager } from '@bentley/imodeljs-backend';
 import { BriefcaseProps, SyncMode } from "@bentley/imodeljs-common";
+import {HubUtility} from "../utils/HubUtility";
 
 describe("Bridge Helpers: Provision Tests", () => {
     let requestContext: AuthorizedClientRequestContext;
     const dotenv = require('dotenv').config();
-    let testProjectId = process.env.imjs_test_project_id; 
+    let testProjectId :string; 
+    let provisionedImodelId :string; 
+    let emptyImodelId :string; 
     let provisionedImodel: IModelDb;
     let emptyImodel: IModelDb;
 
@@ -29,22 +32,28 @@ describe("Bridge Helpers: Provision Tests", () => {
         }
         
         try {
-            // Get provisioned iModel
+            testProjectId =await HubUtility.queryProjectIdByName(requestContext, process.env.imjs_test_project_name);
+
+            provisionedImodelId = await HubUtility.queryIModelIdByName(requestContext, testProjectId, process.env.imjs_test_provisioned_imodel_name);
+           
+            emptyImodelId = await HubUtility.queryIModelIdByName(requestContext, testProjectId, process.env.imjs_test_empty_imodel_name);
+
+            // download provisioned iModel
             const briefcaseProps: BriefcaseProps = await BriefcaseManager.download(
                 requestContext,
                 testProjectId,
-                process.env.imjs_test_provisioned_imodel_id,
+                provisionedImodelId,
                 {syncMode: SyncMode.PullAndPush});
 
             requestContext.enter();
  
             provisionedImodel = await BriefcaseDb.open(requestContext, briefcaseProps.key);
 
-            // Get empty iModel
+            // download empty iModel
             const briefcaseProps2: BriefcaseProps = await BriefcaseManager.download(
                 requestContext,
                 testProjectId,
-                process.env.imjs_test_empty_imodel_id,
+                emptyImodelId,
                 {syncMode: SyncMode.PullAndPush});
 
             requestContext.enter();
