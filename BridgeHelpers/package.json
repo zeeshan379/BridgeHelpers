@@ -5,14 +5,27 @@
   "main": "./lib/Guid.js",
   "scripts": {
     "build": "tsc",
-    "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts"
+    "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts",
+    "test:provision": "mocha -r ts-node/register src/test/Provision.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "crypto": "^1.0.1",
-    "hex-to-uuid": "^1.1.1"
+    "hex-to-uuid": "^1.1.1",
+    "@bentley/bentleyjs-core": "2.10.0-dev.10",
+    "@bentley/imodeljs-backend": "2.10.0-dev.10",
+    "@bentley/itwin-client": "2.10.0-dev.10",
+    "@bentley/oidc-signin-tool": "2.10.0-dev.10",
+    "@bentley/imodeljs-common": "2.10.0-dev.10",
+    "@bentley/geometry-core": "2.10.0-dev.10",
+    "@bentley/telemetry-client": "^2.10.0-dev.10",
+    "@bentley/backend-itwin-client": "2.10.0-dev.10",
+    "@bentley/ecschema-metadata": "2.10.0-dev.10",
+    "@bentley/imodelhub-client": "2.10.0-dev.10",
+    "@bentley/rbac-client": "^2.10.0-dev.10",
+    "@bentley/imodeljs-i18n": "2.10.0-dev.10"
   },
   "devDependencies": {
     "@bentley/build-tools": "^2.10.1",
