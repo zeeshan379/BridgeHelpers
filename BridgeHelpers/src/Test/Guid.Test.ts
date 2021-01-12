@@ -1,5 +1,5 @@
 import {Guid} from '../Guid';
-import { assert, expect } from "chai";
+import { assert } from "chai";
 
 describe("Bridge Helpers: Guid Tests", () => {
     before(async () => {

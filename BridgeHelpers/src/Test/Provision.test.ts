@@ -18,20 +18,14 @@ describe("Bridge Helpers: Provision Tests", () => {
     before(async () => {
         try{
             await IModelHost.startup();
+            requestContext = await TestUtility.getAuthorizedClientRequestContext(TestUsers.regular);
         }
         catch (error) {
-            console.log(error);
+            throw new Error(error);
         }
 
         try {
-            requestContext = await TestUtility.getAuthorizedClientRequestContext(TestUsers.regular);
-        } 
-        catch (error) {
-              console.log(error);
-        }
-        
-        try {
-            testProjectId =await HubUtility.queryProjectIdByName(requestContext, process.env.imjs_test_project_name);
+            testProjectId = await HubUtility.queryProjectIdByName(requestContext, process.env.imjs_test_project_name);
 
             provisionedImodelId = await HubUtility.queryIModelIdByName(requestContext, testProjectId, process.env.imjs_test_provisioned_imodel_name);
            
@@ -63,7 +57,7 @@ describe("Bridge Helpers: Provision Tests", () => {
         } 
 
         catch (error) {
-            console.log(error);
+            throw new Error(error);
         }
         
     });
@@ -78,6 +72,7 @@ describe("Bridge Helpers: Provision Tests", () => {
     it("Should check if a specific schema class exists or not", async () => {
 
         assert.isTrue(ProvisionHelper.schemaClassExists(provisionedImodel, "ProcessFunctional:NAMED_ITEM"));
+        assert.isFalse(ProvisionHelper.schemaClassExists(provisionedImodel, "ProcessFunctional:123!#@Class//<>"));
         assert.isFalse(ProvisionHelper.schemaClassExists(emptyImodel, "ProcessFunctional:NAMED_ITEM"));
 
     });

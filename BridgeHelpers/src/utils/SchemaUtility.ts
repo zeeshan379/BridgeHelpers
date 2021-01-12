@@ -1,5 +1,5 @@
-import { DbResult, Id64, Id64String } from "@bentley/bentleyjs-core";
-import { ECSqlStatement, IModelDb, BriefcaseDb } from "@bentley/imodeljs-backend";
+import { DbResult } from "@bentley/bentleyjs-core";
+import { IModelDb } from "@bentley/imodeljs-backend";
 export class SchemaUtility {
 
 public static queryResult: boolean;
