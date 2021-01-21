@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "test:guid": "mocha -r ts-node/register src/test/Guid.test.ts --timeout 10000",
-    "test:provision": "mocha -r ts-node/register src/test/Provision.test.ts --timeout 60000"
+    "test:provision": "mocha -r ts-node/register src/test/Provision.test.ts --timeout 30000",
+    "test:iModelHelper": "mocha -r ts-node/register src/test/ImodelHelper.test.ts --timeout 600000"
   },
   "keywords": [],
   "author": "",

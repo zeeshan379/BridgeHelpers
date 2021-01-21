@@ -6,7 +6,7 @@ import { IModelDb, IModelHost, BriefcaseDb, BriefcaseManager } from '@bentley/im
 import { BriefcaseProps, SyncMode } from "@bentley/imodeljs-common";
 import {HubUtility} from "../utils/HubUtility";
 
-describe("Bridge Helpers: Provision Tests", () => {
+describe("Bridge Helpers: Provision Helper Tests", () => {
     let requestContext: AuthorizedClientRequestContext;
     const dotenv = require('dotenv').config();
     let testProjectId :string; 

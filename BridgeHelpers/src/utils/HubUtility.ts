@@ -6,6 +6,7 @@ import { GuidString } from "@bentley/bentleyjs-core";
 import { ContextRegistryClient, Project } from "@bentley/context-registry-client";
 import { HubIModel, IModelHubClient, IModelQuery } from "@bentley/imodelhub-client";
 import { AuthorizedClientRequestContext } from "@bentley/itwin-client";
+import { BriefcaseDb, FunctionalModel, Element } from "@bentley/imodeljs-backend";
 
 /** Utility to work with iModelHub */
 export class HubUtility {
@@ -69,5 +70,81 @@ export class HubUtility {
     const client = new IModelHubClient();
     await client.iModels.delete(requestContext, projectId, iModelId);
   }
+
+   /**
+   * Creates an empty functional model
+   * @param targetDb target iModel
+   * @param targetSubjectId target subject 
+   * @param modelName functional model name
+   * @throws If the iModel or subject id or model name is invalid.
+   */
+
+  public static async CreateEmptyFunctionalModel(targetDb: BriefcaseDb, targetSubjectId: string, modelName:string) : Promise<Element>{
+   
+    if(targetDb===undefined ||targetDb===null ){
+        throw new Error('Invalid imodel');
+    }
+
+    else if(targetSubjectId===undefined ||targetSubjectId===null || targetSubjectId.length===0){
+        throw new Error('Invalid subject id');
+    }
+
+    else if(modelName===undefined ||modelName===null || modelName.length===0){
+        throw new Error('Invalid model name');
+    }
+
+    try {
+        const targetFunctionalModelId=  FunctionalModel.insert(targetDb, targetSubjectId, modelName);
+        const functionalModel = targetDb.elements.getElement(targetFunctionalModelId);
+        functionalModel.federationGuid = "";
+        functionalModel.update();
+
+        return functionalModel;
+
+    }
+
+    catch(error){
+        console.log(error);
+        return undefined;
+    }
+}
+
+  /**
+   * Pushes changes to iModel hub
+   * @param authContext The client request context
+   * @param targetDb imodel to be pushed
+   * @param message commit message
+   * @throws If the iModel or auth context or commit messaage is invalid.
+   */
+
+  public static async PushChanges(authContext : AuthorizedClientRequestContext, targetDb: BriefcaseDb, message: string) : Promise<boolean>{
+    if(targetDb===undefined ||targetDb===null ){
+        throw new Error('Invalid imodel');
+    }
+
+    else if(authContext===undefined ||authContext===null ){
+        throw new Error('Invalid authorization context');
+    }
+
+    else if(message===undefined || message===null || message.length===0){
+        throw new Error('Please provide a valid commit message');
+    }
+
+    try{
+        await targetDb.concurrencyControl.request(authContext);
+        authContext.enter();
+
+        await targetDb.saveChanges();
+        await targetDb.pullAndMergeChanges(authContext);
+        await targetDb.pushChanges(authContext, message);
+        authContext.enter();
+        return true;
+    }
+
+    catch(error){
+        console.log(error);
+        return false;
+    }
+}
 
 }
